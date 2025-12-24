@@ -75,7 +75,7 @@ export default function Footer() {
 
         <div className="border-t border-[#00f2fe]/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-400 text-sm">
-            © 2024 Bitspark Solutions. All rights reserved.
+            © {new Date().getFullYear()} Bitspark Solutions. All rights reserved.
           </p>
 
           <div className="flex items-center space-x-4">
