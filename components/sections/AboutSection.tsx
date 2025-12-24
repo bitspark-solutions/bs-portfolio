@@ -1,12 +1,14 @@
 'use client';
 
+import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Briefcase, TrendingUp, Globe2 } from 'lucide-react';
 
 export default function AboutSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [imgError, setImgError] = useState(false);
 
   return (
     <section id="about" ref={ref} className="py-20 px-4 relative overflow-hidden">
@@ -92,9 +94,21 @@ export default function AboutSection() {
               <div className="absolute -inset-1 bg-gradient-to-r from-[#00f2fe] to-[#4facfe] rounded-2xl blur opacity-20" />
 
               <div className="relative space-y-6">
-                <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-[#00f2fe] to-[#4facfe] flex items-center justify-center text-6xl font-bold text-[#0a0e27]">
-                  BS
-                </div>
+                {!imgError ? (
+                  <div className="relative w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-[#00f2fe]/20">
+                    <Image
+                      src="/logo.png"
+                      alt="Bitspark Solutions Logo"
+                      fill
+                      className="object-cover"
+                      onError={() => setImgError(true)}
+                    />
+                  </div>
+                ) : (
+                  <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-[#00f2fe] to-[#4facfe] flex items-center justify-center text-6xl font-bold text-[#0a0e27]">
+                    BS
+                  </div>
+                )}
 
                 <div className="text-center space-y-2">
                   <h3 className="text-2xl font-bold gradient-text">Bitspark Solutions</h3>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Menu, X, Home, User, Code2, Wallet, Cloud, Layout, FolderKanban, Boxes, BookOpen, Award, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -23,6 +24,7 @@ export default function Navigation() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,10 +76,19 @@ export default function Navigation() {
             whileHover={{ scale: 1.05 }}
             className="flex items-center space-x-2"
           >
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#00f2fe] to-[#4facfe] flex items-center justify-center">
-              <span className="text-[#0a0e27] font-bold text-xl">BS</span>
-            </div>
-            <span className="text-xl font-bold gradient-text hidden md:block">Bitspark</span>
+            {!imgError && (
+              <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[#00f2fe]/50">
+                <Image 
+                  src="/logo.png" 
+                  alt="Bitspark Solutions Logo" 
+                  fill
+                  className="object-cover"
+                  priority
+                  onError={() => setImgError(true)}
+                />
+              </div>
+            )}
+            <span className={`text-xl font-bold gradient-text ${!imgError ? 'hidden' : 'block'}`}>Bitspark</span>
           </motion.div>
 
           <div className="hidden lg:flex items-center space-x-1">

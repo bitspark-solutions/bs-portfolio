@@ -1,10 +1,14 @@
 'use client';
 
+import Image from 'next/image';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUp, Github, Linkedin, Mail, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Footer() {
+  const [imgError, setImgError] = useState(false);
+  
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -18,9 +22,21 @@ export default function Footer() {
               whileHover={{ scale: 1.05 }}
               className="flex items-center space-x-2"
             >
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#00f2fe] to-[#4facfe] flex items-center justify-center">
-                <span className="text-[#0a0e27] font-bold text-xl">BS</span>
-              </div>
+              {!imgError ? (
+                <div className="relative w-12 h-12 rounded-full overflow-hidden border border-[#00f2fe]/50">
+                  <Image
+                    src="/logo.png"
+                    alt="Bitspark Solutions Logo"
+                    fill
+                    className="object-cover"
+                    onError={() => setImgError(true)}
+                  />
+                </div>
+              ) : (
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#00f2fe] to-[#4facfe] flex items-center justify-center">
+                  <span className="text-[#0a0e27] font-bold text-xl">BS</span>
+                </div>
+              )}
               <span className="text-xl font-bold gradient-text">Bitspark</span>
             </motion.div>
             <p className="text-gray-400 text-sm leading-relaxed">
@@ -109,12 +125,6 @@ export default function Footer() {
               <ArrowUp className="w-5 h-5" />
             </Button>
           </motion.div>
-        </div>
-
-        <div className="mt-8 text-center">
-          <p className="text-gray-500 text-xs">
-            Built with Next.js, Tailwind CSS, shadcn/ui, and Framer Motion
-          </p>
         </div>
       </div>
 
